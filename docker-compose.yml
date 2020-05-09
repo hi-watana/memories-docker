@@ -1,0 +1,32 @@
+version: "3"
+services:
+  api:
+    build:
+      context: ../memories-api/
+      dockerfile: ../memories-docker/api/Dockerfile
+    ports:
+      - "3030:3000"
+    volumes:
+      - ../memories-api/:/app
+    working_dir: /app
+    environment:
+      MONGODB_URI: "mongodb://mongo:27017/note_items"
+      DEBUG: "memories-api:*"
+    command: npm start
+
+  front:
+    build:
+      context: ../memories-front/
+      dockerfile: ../memories-docker/front/Dockerfile
+    ports:
+      - "3000:3000"
+    tty: true
+    volumes:
+      - ../memories-front/:/app
+    working_dir: /app
+    command: npm start
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
