@@ -23,6 +23,8 @@ services:
     tty: true
     volumes:
       - ../memories-front/:/app
+    environment:
+      REACT_APP_API_URI: "http://localhost:3030"
     working_dir: /app
     command: npm start
 
